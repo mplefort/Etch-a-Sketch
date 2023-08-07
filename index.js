@@ -3,6 +3,32 @@ let container = document.querySelector('.container');
 
 let gridSize = 4;
 
+
+
+const form = document.querySelector('#gridsize-form');
+form.addEventListener('submit', (event) => {
+  event.preventDefault(); // Prevent the form from submitting and reloading the page
+  gridSize = document.getElementById('gridsize').value;
+  console.log(gridSize); // Log the value of the number input to the console
+
+    resizeGrid(gridSize);
+});
+
+
+const resetButton = document.querySelector('#reset');
+resetButton.addEventListener('click', () => {
+    resetGrid();
+})
+
+// function to resize the grid
+function resizeGrid(gridSize) {
+    container.innerHTML = ''; // clear the grid
+    createGrid(gridSize);
+    styleGrid(gridSize);
+    changeColor(); // add event listener to the new grid
+}
+
+
 function createGrid(gridSize) {
     for (let i = 0; i < gridSize*gridSize; i++) {
         let grid = document.createElement('div');
@@ -11,7 +37,6 @@ function createGrid(gridSize) {
     }
 }
 
-createGrid(gridSize);
 
 //  function to style the pixel divs to create a grid using flexbox
 function styleGrid(gridSize) {
@@ -31,8 +56,31 @@ function styleGrid(gridSize) {
         pixel.style.width = `${400/gridSize - 2*border_size}px`;
         pixel.style.height = `${400/gridSize - 2*border_size}px`;
         pixel.style.border = `${border_size}px solid black`;
-        pixel.style.backgroundColor = 'white';
+        
     })
 }
 
+
+// function to change the color of the pixel divs when the mouse hovers over them
+function changeColor() {
+    let pixels = document.querySelectorAll('.pixel');
+    pixels.forEach(pixel => {
+        pixel.addEventListener('mouseover', () => {
+            pixel.classList.add('colored');
+        })
+    })
+}
+
+// reset the grid color to white
+function resetGrid() {
+    let pixels = document.querySelectorAll('.pixel');
+    pixels.forEach(pixel => {
+        pixel.classList.remove('colored');
+    })
+}
+
+
+createGrid(gridSize);
 styleGrid(gridSize);
+changeColor();
+

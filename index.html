@@ -7,6 +7,16 @@
     <title>etch-a-sketch</title>
 </head>
 <body>
+    <div class="header">
+
+        <h1>Etch-a-Sketch</h1>
+        <form id="gridsize-form" action="submit">
+            <label for="gridsize">Grid Size</label>
+            <input type="number" name="gridsize" id="gridsize" min="1" max="100" value="16">
+            <input type="submit" value="Submit">
+        </form>
+        <button id="reset">Reset</button>
+    </div>
     <div class="container"></div>
     
     <script src="./index.js"></script>
